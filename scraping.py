@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://www.millenium.org/guide/391312.html"
+url = "https://github.com/DALM1/ScrapingPython/blob/main/scraping.py"
 
 # Effectuer une demande GET sur la page web
 response = requests.get(url)
@@ -16,7 +16,7 @@ if response.status_code == 200:
 
     # Ouvrir un nouveau fichier texte pour stocker les URLs
     with open("image_urls.txt", "w") as file:
-        # Boucle sur les images trouvées et écrire leur URL dans le fichier texte
+        # Boucle sur les images trouvées et écrire leur URL dans le fichier
         for image in images:
             file.write(image["src"] + "\n")
 
