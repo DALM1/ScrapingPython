@@ -1,16 +1,14 @@
-import subprocess
-import os
-import signal
+import pexpect
 
 def extract_hidden_file(image_file):
     cmd = "steghide extract -sf " + image_file
+    child = pexpect.spawn(cmd)
     try:
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=120)
-        if result.returncode == 0:
-            return result.stdout.decode("utf-8").strip()
-        else:
-            return None
-    except subprocess.TimeoutExpired:
+        child.expect("Enter passphrase:")
+        child.sendline("passphrase")
+        child.expect(pexpect.EOF)
+        return child.before.decode("utf-8").strip()
+    except pexpect.exceptions.TIMEOUT:
         print("Extracting hidden file timed out after 10 seconds.")
         return None
 
