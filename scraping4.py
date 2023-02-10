@@ -2,35 +2,29 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-# URL de la page à scrapper
-url = "https://www.youtube.com"
+url = "https://soundcloud.com/dalm111/likes"
 
-# Effectuer une demande GET sur la page web
 response = requests.get(url)
 
-# Vérifier que la requête a réussi
 if response.status_code == 200:
-    # Analyser le contenu de la page web avec BeautifulSoup
     soup = BeautifulSoup(response.content, "html.parser")
-
-    # Rechercher toutes les balises img
     images = soup.find_all("img")
 
-    # Créer le dossier "images" s'il n'existe pas
-    if not os.path.exists("images"):
-        os.makedirs("images")
+    if not os.path.exists("thumbnails"):
+        os.makedirs("thumbnails")
 
-    # Boucle sur toutes les images trouvées
-    for index, image in enumerate(images):
-        # Récupérer l'URL de l'image
-        img_url = image.get("src")
-
-        # Effectuer une demande GET pour télécharger l'image
-        img_response = requests.get(img_url)
-        if img_response.status_code == 200:
-            # Enregistrer l'image dans le dossier "images"
-            with open(f"images/image_{index}.jpg", "wb") as file:
-                file.write(img_response.content)
-    print("Les images ont été téléchargées avec succès!")
+    for image in images:
+        img_url = image["src"]
+        if "http" not in img_url:
+            # sometimes an image source is relative 
+            # if it is provide the base url which also happens 
+            # to be the site variable atm. 
+            img_url = url + img_url
+        
+        response = requests.get(img_url)
+        with open(f"thumbnails/{img_url.split('/')[-1]}", "wb") as file:
+            file.write(response.content)
+    
+    print("Thumbnails downloaded successfully")
 else:
-    print("La requête a échoué avec le code d'état", response.status_code)
+    print("Request failed with status code", response.status_code)
