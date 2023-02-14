@@ -12,7 +12,7 @@ def embed_text_in_image():
         print("Aucune image trouvée")
         return
 
-    last_image = max(all_files, key=os.path.getmtime)
+    last_image = max(all_files, key=os.path.getctime)
     print(f"Dernière image trouvée : {last_image}")
 
     text_file_name = f"{os.path.splitext(last_image)[0]}.txt"
@@ -21,7 +21,9 @@ def embed_text_in_image():
         message = input().strip()
         text_file.write(message)
 
-    subprocess.run(["steghide", "embed", "-cf", last_image, "-ef", text_file_name])
+    steghide_command = ["steghide", "embed", "-cf", last_image, "-ef", text_file_name]
+    subprocess.run(steghide_command)
+
     os.remove(text_file_name)
     print(f"Message caché dans {last_image} et {text_file_name} supprimé.")
 
