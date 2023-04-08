@@ -1,6 +1,16 @@
 import os
 import subprocess
 
+print (" (              (       *  ")         
+print (" )\ )    (      )\ )  (  `       )")  
+print ("(()/(    )\    (()/(  )\))(   ( /(")  
+print (" /(_))((((_)(   /(_))((_)()\  )\())") 
+print ("(_))_  )\ _ )\ (_))  (_()((_)((_)\ ")  
+print (" |   \ (_)_\(_)| |   |  \/  | / (_)") 
+print (" | |) | / _ \  | |__ | |\/| | | |  ") 
+print (" |___/ /_/ \_\ |____||_|  |_| |_| ")
+
+
 def embed_text_in_image():
     all_files = []
     for dirpath, dirnames, filenames in os.walk("."):

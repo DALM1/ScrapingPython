@@ -1,6 +1,16 @@
 import os
 import time
 
+print (" (              (       *  ")         
+print (" )\ )    (      )\ )  (  `       )")  
+print ("(()/(    )\    (()/(  )\))(   ( /(")  
+print (" /(_))((((_)(   /(_))((_)()\  )\())") 
+print ("(_))_  )\ _ )\ (_))  (_()((_)((_)\ ")  
+print (" |   \ (_)_\(_)| |   |  \/  | / (_)") 
+print (" | |) | / _ \  | |__ | |\/| | | |  ") 
+print (" |___/ /_/ \_\ |____||_|  |_| |_| ")
+
+
 def main():
     image_file = input("Enter the name of the image file: ")
     cmd = "steghide extract -sf {}".format(image_file)
